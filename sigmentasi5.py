@@ -1,32 +1,26 @@
 import cv2
 
 # baca gambar
-gambar = cv2.imread('burung.jpg')
+img = cv2.imread('burung.jpg')
+cv2.imshow("original", img)
 
-#tampilkan gambar asli
-cv2.imshow("original", gambar)
-
-# convert BGR ke RGB
-rgb = cv2.cvtColor(gambar, cv2.COLOR_BGR2RGB)
-cv2.imshow("Hasil RGB", rgb)
-
+# Mengubah BGR ke RGB
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 # convert RGK ke HSV
-hsv = cv2.cvtColor(rgb, cv2.COLOR_RGB2HSV)
-cv2.imshow("Hasil HSV", hsv)
+hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+cv2.imshow("Hasil HSV", img)
 
-# deklarasi batas bawah (hijau cerah)
-light_green = (2, 200, 200)
-# deklarasi batas atas (dark hijau)
-dark_green = (18, 255, 255)
+#deklarasi batas warna
+light =(50,20,20)
+dark =(100, 255, 255)
 
 # tresholding
-mask = cv2.inRange(hsv, light_green, dark_green)
-cv2.imshow("Hasil MASK", mask)
+mask = cv2.inRange(hsv, light, dark)
+cv2.imshow("Hasil Tresholding", mask)
 
 # impose gambar asli dengan mask
-result = cv2.bitwise_and(gambar, rgb, mask=mask)
-cv2.imshow("Hasil Result", result)
+result = cv2.bitwise_and(img, img, mask=mask)
+cv2.imshow("Result", result)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
